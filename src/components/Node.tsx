@@ -1,4 +1,4 @@
-import { nodeType } from "@/types/filedTypes";
+import { nodeType } from "@/types/fieldTypes";
 import classNames from "classnames";
 import React from "react";
 
