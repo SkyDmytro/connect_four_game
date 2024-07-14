@@ -1,11 +1,12 @@
-import { Field } from "@/components/Field";
-import { useField } from "@/hooks/useField";
+import Field from "@/components/Field";
 import React from "react";
 
 const HomePage = () => {
-  const { createField } = useField();
-  const field = createField();
-  return <Field field={field} />;
+  return (
+    <>
+      <Field />
+    </>
+  );
 };
 
 export default HomePage;

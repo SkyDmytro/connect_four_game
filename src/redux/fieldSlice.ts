@@ -6,7 +6,62 @@ type fieldStateType = {
 };
 
 const initializeFieldState: fieldStateType = {
-  field: [],
+  field: [
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+    [
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+      { color: "none", value: 0 },
+    ],
+  ],
 };
 
 const fieldSlice = createSlice({
