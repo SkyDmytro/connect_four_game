@@ -1,23 +1,30 @@
-import { nodeType } from "@/types/fieldTypes";
+import { NodeIdx as NodeIdxType, nodeType } from "@/types/fieldTypes";
 import classNames from "classnames";
 import React from "react";
 
 interface NodeProps {
   node: nodeType;
+  nodeIdx: NodeIdxType;
+  onClick: (nodeIds: NodeIdxType) => void;
 }
 
-export const Node = ({ node }: NodeProps) => {
+export const Node = ({ nodeIdx, node, onClick }: NodeProps) => {
+  const handleClick = () => {
+    onClick(nodeIdx);
+  };
+
   const nodeClasses = classNames({
-    node: true,
-    "basis-full": true,
-    // "h-50px": true,
-    // "w-50px": true,
+    "w-32": true, // width
+    "h-32": true, // height
     flex: true,
-    "bg-red": node.color === "red",
-    "bg-blue": node.color === "blue",
-    "bg-yellow-300": true,
+    "items-center": true,
+    "justify-center": true,
+    "bg-gray-300": node.color === "none",
+    "bg-red-600": node.color === "red",
+    "bg-blue-700": node.color === "blue",
     "rounded-full": true,
+    "m-0": true,
   });
 
-  return <div className={nodeClasses}></div>;
+  return <div className={nodeClasses} onClick={handleClick}></div>;
 };
