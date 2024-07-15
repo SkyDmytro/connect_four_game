@@ -1,18 +1,24 @@
-import { nodeType } from "@/types/fieldTypes";
+import { updateCell } from "@/redux/fieldSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/store";
+import { fieldType, NodeIdx, nodeType } from "@/types/fieldTypes";
+import { getIndexOfLowestCell } from "@/utils/functions";
 import React from "react";
 
 export const useField = () => {
-  const createField = () => {
-    const field = [];
-    const emptyNode: nodeType = { color: "none", value: 0 };
-    for (let i = 0; i < 6; i++) {
-      const row = [];
-      for (let j = 0; j < 7; j++) {
-        row.push(emptyNode);
-      }
-      field.push(row);
+  const { field } = useAppSelector((state) => state.field);
+  const dispatch = useAppDispatch();
+
+  const updateField = (nodeIdx: NodeIdx): fieldType => {
+    const newField = field;
+    const cellIndex = getIndexOfLowestCell(field, nodeIdx);
+    console.log(cellIndex);
+    if (cellIndex !== -1) {
+      dispatch(updateCell(cellIndex));
     }
-    return field;
+    return newField;
   };
-  return { createField };
+
+  const doesSomeoneWin = () => {};
+
+  return { updateField };
 };
