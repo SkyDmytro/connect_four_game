@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import React from "react";
-import { useSelector } from "react-redux";
-import { Node } from "./Node";
-import { RootState, useAppDispatch } from "@/redux/store";
-import { NodeIdx } from "@/types/fieldTypes";
-import { updateCell } from "@/redux/fieldSlice";
-import { useField } from "@/hooks/useField";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Node } from './Node';
+import { RootState, useAppDispatch } from '@/redux/store';
+import { NodeIdx } from '@/types/fieldTypes';
+import { updateCell } from '@/redux/fieldSlice';
+import { useField } from '@/hooks/useField';
 
 interface FieldProps {}
 

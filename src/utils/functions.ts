@@ -1,4 +1,4 @@
-import { fieldType, NodeIdx } from "@/types/fieldTypes";
+import { fieldType, NodeIdx } from '@/types/fieldTypes';
 
 export const getIndexOfLowestCell = (field: fieldType, cellIdx: NodeIdx) => {
   const colIdx = cellIdx[1];
