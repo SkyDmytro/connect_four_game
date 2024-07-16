@@ -41,7 +41,5 @@ export const checkHorizontalLine = (
   }
   return false;
 };
-export const checkVerticalLine = () => {
-  
-};
+export const checkVerticalLine = () => {};
 export const checkDiagonal = () => {};
