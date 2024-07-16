@@ -1,8 +1,8 @@
-import { updateCell } from "@/redux/fieldSlice";
-import { useAppDispatch, useAppSelector } from "@/redux/store";
-import { fieldType, NodeIdx, nodeType } from "@/types/fieldTypes";
-import { getIndexOfLowestCell } from "@/utils/functions";
-import React from "react";
+import { updateCell } from '@/redux/fieldSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { fieldType, NodeIdx, nodeType } from '@/types/fieldTypes';
+import { getIndexOfLowestCell } from '@/utils/functions';
+import React from 'react';
 
 export const useField = () => {
   const { field } = useAppSelector((state) => state.field);
