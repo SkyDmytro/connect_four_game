@@ -1,24 +1,35 @@
 import { updateCell } from '@/redux/fieldSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { fieldType, NodeIdx, nodeType } from '@/types/fieldTypes';
-import { getIndexOfLowestCell } from '@/utils/functions';
+import { fieldType, NodeIdxType, nodeType } from '@/types/fieldTypes';
+import {
+  checkHorizontalLine,
+  checkVerticalLine,
+  getIndexOfLowestCell
+} from '@/utils/functions';
 import React from 'react';
 
 export const useField = () => {
-  const { field } = useAppSelector((state) => state.field);
+  const { field, currentColor, lastChangedNode } = useAppSelector(
+    (state) => state.field
+  );
   const dispatch = useAppDispatch();
 
-  const updateField = (nodeIdx: NodeIdx): fieldType => {
+  const updateField = (nodeIdx: NodeIdxType): fieldType => {
     const newField = field;
     const cellIndex = getIndexOfLowestCell(field, nodeIdx);
-    console.log(cellIndex);
     if (cellIndex !== -1) {
       dispatch(updateCell(cellIndex));
     }
     return newField;
   };
 
-  const doesSomeoneWin = () => {};
+  const doesSomeoneWin = () => {
+    if (lastChangedNode) {
+      checkHorizontalLine(field, lastChangedNode, currentColor);
+      checkVerticalLine(field, lastChangedNode, currentColor);
+    }
+    return false;
+  };
 
-  return { updateField };
+  return { updateField, doesSomeoneWin };
 };

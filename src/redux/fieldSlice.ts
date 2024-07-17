@@ -1,9 +1,11 @@
-import { fieldType, NodeIdx } from '@/types/fieldTypes';
+import { fieldType, NodeIdxType } from '@/types/fieldTypes';
+import { getNewColor } from '@/utils/functions';
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
 type fieldStateType = {
   field: fieldType;
   currentColor: 'blue' | 'red';
+  lastChangedNode: null | NodeIdxType;
 };
 
 const initializeFieldState: fieldStateType = {
@@ -63,11 +65,8 @@ const initializeFieldState: fieldStateType = {
       { color: 'none', value: 0 }
     ]
   ],
-  currentColor: 'blue'
-};
-
-const getNewColor = (color: 'blue' | 'red') => {
-  return color === 'blue' ? 'red' : 'blue';
+  currentColor: 'blue',
+  lastChangedNode: null
 };
 
 const fieldSlice = createSlice({
@@ -83,6 +82,7 @@ const fieldSlice = createSlice({
         color: state.currentColor
       };
       state.currentColor = getNewColor(state.currentColor);
+      state.lastChangedNode = payload.payload;
     }
   }
 });
