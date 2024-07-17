@@ -1,7 +1,11 @@
 import { updateCell } from '@/redux/fieldSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { fieldType, NodeIdxType, nodeType } from '@/types/fieldTypes';
-import { checkHorizontalLine, getIndexOfLowestCell } from '@/utils/functions';
+import {
+  checkHorizontalLine,
+  checkVerticalLine,
+  getIndexOfLowestCell
+} from '@/utils/functions';
 import React from 'react';
 
 export const useField = () => {
@@ -21,7 +25,8 @@ export const useField = () => {
 
   const doesSomeoneWin = () => {
     if (lastChangedNode) {
-      console.log(checkHorizontalLine(field, lastChangedNode, currentColor));
+      checkHorizontalLine(field, lastChangedNode, currentColor);
+      checkVerticalLine(field, lastChangedNode, currentColor);
     }
     return false;
   };

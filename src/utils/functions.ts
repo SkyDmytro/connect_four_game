@@ -41,5 +41,27 @@ export const checkHorizontalLine = (
   }
   return false;
 };
-export const checkVerticalLine = () => {};
+export const checkVerticalLine = (
+  field: fieldType,
+  lastNodeIdx: NodeIdxType,
+  currentColor: 'blue' | 'red'
+) => {
+  const lastNodeColor = getNewColor(currentColor);
+  console.log(lastNodeIdx, 'dsadas', lastNodeColor);
+  let cirlceSubsequence = 0;
+  const columnId = lastNodeIdx[1];
+  for (let i = 5; i >= 0; i--) {
+    console.log(cirlceSubsequence);
+    console.log(field[i][columnId].color);
+    if (field[i][columnId].color === lastNodeColor) {
+      cirlceSubsequence++;
+    } else {
+      if (cirlceSubsequence >= 5) {
+        return true;
+      }
+      cirlceSubsequence = 0;
+    }
+  }
+  return false;
+};
 export const checkDiagonal = () => {};
