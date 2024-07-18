@@ -64,4 +64,69 @@ export const checkVerticalLine = (
   }
   return false;
 };
-export const checkDiagonal = () => {};
+export const checkDiagonal = (
+  field: fieldType,
+  lastNodeIdx: NodeIdxType,
+  currentColor: 'blue' | 'red'
+) => {
+  const newColor = getNewColor(currentColor);
+  console.log(
+    'main',
+    checkMainDiagonal(newColor, lastNodeIdx, field),
+    'second',
+    checkSecondaryDiagonal(newColor, lastNodeIdx, field)
+  );
+  return (
+    checkMainDiagonal(newColor, lastNodeIdx, field) ||
+    checkSecondaryDiagonal(newColor, lastNodeIdx, field)
+  );
+};
+
+const checkMainDiagonal = (
+  color: 'blue' | 'red',
+  lastNodeIdx: NodeIdxType,
+  field: fieldType
+) => {
+  // console.log(lastNodeIdx, 'dsadas', lastNodeColor);
+  let cirlceSubsequence = 0;
+  const summOfDiagonal = lastNodeIdx[0] + lastNodeIdx[1];
+  for (let i = 5; i >= 0; i--) {
+    for (let j = 6; j >= 0; j--) {
+      if (i + j === summOfDiagonal) {
+        if (field[i][j].color === color) {
+          cirlceSubsequence++;
+        } else {
+          if (cirlceSubsequence >= 5) {
+            return true;
+          }
+          cirlceSubsequence = 0;
+        }
+      }
+    }
+  }
+  return false;
+};
+
+const checkSecondaryDiagonal = (
+  color: 'blue' | 'red',
+  lastNodeIdx: NodeIdxType,
+  field: fieldType
+) => {
+  let cirlceSubsequence = 0;
+  const diffOfDiagonal = lastNodeIdx[0] + lastNodeIdx[1];
+  for (let i = 5; i >= 0; i--) {
+    for (let j = 6; j >= 0; j--) {
+      if (i - j === diffOfDiagonal) {
+        if (field[i][j].color === color) {
+          cirlceSubsequence++;
+        } else {
+          if (cirlceSubsequence >= 5) {
+            return true;
+          }
+          cirlceSubsequence = 0;
+        }
+      }
+    }
+  }
+  return false;
+};

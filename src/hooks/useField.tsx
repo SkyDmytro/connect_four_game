@@ -2,6 +2,7 @@ import { updateCell } from '@/redux/fieldSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { fieldType, NodeIdxType, nodeType } from '@/types/fieldTypes';
 import {
+  checkDiagonal,
   checkHorizontalLine,
   checkVerticalLine,
   getIndexOfLowestCell
@@ -27,6 +28,7 @@ export const useField = () => {
     if (lastChangedNode) {
       checkHorizontalLine(field, lastChangedNode, currentColor);
       checkVerticalLine(field, lastChangedNode, currentColor);
+      checkDiagonal(field, lastChangedNode, currentColor);
     }
     return false;
   };
