@@ -24,16 +24,13 @@ export const checkHorizontalLine = (
   currentColor: 'blue' | 'red'
 ) => {
   const lastNodeColor = getNewColor(currentColor);
-  console.log(lastNodeIdx, 'dsadas', lastNodeColor);
   let cirlceSubsequence = 0;
   const rowId = lastNodeIdx[0];
   for (let i = 0; i < 7; i++) {
-    console.log(cirlceSubsequence);
-    console.log(field[rowId][i].color);
     if (field[rowId][i].color === lastNodeColor) {
       cirlceSubsequence++;
     } else {
-      if (cirlceSubsequence >= 5) {
+      if (cirlceSubsequence >= 4) {
         return true;
       }
       cirlceSubsequence = 0;
@@ -47,16 +44,13 @@ export const checkVerticalLine = (
   currentColor: 'blue' | 'red'
 ) => {
   const lastNodeColor = getNewColor(currentColor);
-  console.log(lastNodeIdx, 'dsadas', lastNodeColor);
   let cirlceSubsequence = 0;
   const columnId = lastNodeIdx[1];
   for (let i = 5; i >= 0; i--) {
-    console.log(cirlceSubsequence);
-    console.log(field[i][columnId].color);
     if (field[i][columnId].color === lastNodeColor) {
       cirlceSubsequence++;
     } else {
-      if (cirlceSubsequence >= 5) {
+      if (cirlceSubsequence >= 4) {
         return true;
       }
       cirlceSubsequence = 0;
@@ -70,12 +64,6 @@ export const checkDiagonal = (
   currentColor: 'blue' | 'red'
 ) => {
   const newColor = getNewColor(currentColor);
-  console.log(
-    'main',
-    checkMainDiagonal(newColor, lastNodeIdx, field),
-    'second',
-    checkSecondaryDiagonal(newColor, lastNodeIdx, field)
-  );
   return (
     checkMainDiagonal(newColor, lastNodeIdx, field) ||
     checkSecondaryDiagonal(newColor, lastNodeIdx, field)
@@ -87,7 +75,6 @@ const checkMainDiagonal = (
   lastNodeIdx: NodeIdxType,
   field: fieldType
 ) => {
-  // console.log(lastNodeIdx, 'dsadas', lastNodeColor);
   let cirlceSubsequence = 0;
   const summOfDiagonal = lastNodeIdx[0] + lastNodeIdx[1];
   for (let i = 5; i >= 0; i--) {
@@ -96,7 +83,7 @@ const checkMainDiagonal = (
         if (field[i][j].color === color) {
           cirlceSubsequence++;
         } else {
-          if (cirlceSubsequence >= 5) {
+          if (cirlceSubsequence >= 4) {
             return true;
           }
           cirlceSubsequence = 0;
@@ -120,7 +107,7 @@ const checkSecondaryDiagonal = (
         if (field[i][j].color === color) {
           cirlceSubsequence++;
         } else {
-          if (cirlceSubsequence >= 5) {
+          if (cirlceSubsequence >= 4) {
             return true;
           }
           cirlceSubsequence = 0;

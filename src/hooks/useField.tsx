@@ -26,9 +26,11 @@ export const useField = () => {
 
   const doesSomeoneWin = () => {
     if (lastChangedNode) {
-      checkHorizontalLine(field, lastChangedNode, currentColor);
-      checkVerticalLine(field, lastChangedNode, currentColor);
-      checkDiagonal(field, lastChangedNode, currentColor);
+      return (
+        checkHorizontalLine(field, lastChangedNode, currentColor) ||
+        checkVerticalLine(field, lastChangedNode, currentColor) ||
+        checkDiagonal(field, lastChangedNode, currentColor)
+      );
     }
     return false;
   };
