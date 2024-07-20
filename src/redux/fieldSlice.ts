@@ -6,6 +6,7 @@ type fieldStateType = {
   field: fieldType;
   currentColor: 'blue' | 'red';
   lastChangedNode: null | NodeIdxType;
+  isWinner: boolean;
 };
 
 const initializeFieldState: fieldStateType = {
@@ -66,7 +67,8 @@ const initializeFieldState: fieldStateType = {
     ]
   ],
   currentColor: 'blue',
-  lastChangedNode: null
+  lastChangedNode: null,
+  isWinner: false
 };
 
 const fieldSlice = createSlice({
@@ -83,9 +85,13 @@ const fieldSlice = createSlice({
       };
       state.currentColor = getNewColor(state.currentColor);
       state.lastChangedNode = payload.payload;
+    },
+    updateWinState: (state, payload) => {
+      state.isWinner = payload.payload;
     }
   }
 });
 
-export const { initializeField, updateCell } = fieldSlice.actions;
+export const { initializeField, updateCell, updateWinState } =
+  fieldSlice.actions;
 export default fieldSlice.reducer;

@@ -1,4 +1,4 @@
-import { updateCell } from '@/redux/fieldSlice';
+import { updateCell, updateWinState } from '@/redux/fieldSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { fieldType, NodeIdxType, nodeType } from '@/types/fieldTypes';
 import {
@@ -26,10 +26,12 @@ export const useField = () => {
 
   const doesSomeoneWin = () => {
     if (lastChangedNode) {
-      return (
-        checkHorizontalLine(field, lastChangedNode, currentColor) ||
-        checkVerticalLine(field, lastChangedNode, currentColor) ||
-        checkDiagonal(field, lastChangedNode, currentColor)
+      dispatch(
+        updateWinState(
+          checkHorizontalLine(field, lastChangedNode, currentColor) ||
+            checkVerticalLine(field, lastChangedNode, currentColor) ||
+            checkDiagonal(field, lastChangedNode, currentColor)
+        )
       );
     }
     return false;
