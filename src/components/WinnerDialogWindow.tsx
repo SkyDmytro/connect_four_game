@@ -8,7 +8,15 @@ export const WinnerDialogWindow = () => {
   const { currentColor, isWinner } = useSelector(
     (state: RootState) => state.field
   );
-  console.log('isWinner:', isWinner);
   const color = getNewColor(currentColor);
-  return isWinner && <div className="">{color} won</div>;
+  return (
+    isWinner && (
+      <div className="absolute z-50 bg-black size-40 flex justify-center items-center flex-col gap-2">
+        {color} won
+        <button className="border border-neutral-700 rounded text underline decoration-sky-500">
+          Restart
+        </button>
+      </div>
+    )
+  );
 };
