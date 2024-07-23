@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Node } from './Node';
 import { RootState, useAppDispatch } from '@/redux/store';
@@ -14,10 +14,32 @@ interface FieldProps {}
 const Field = () => {
   const { field } = useSelector((state: RootState) => state.field);
   const { updateField, doesSomeoneWin } = useField();
+  var ws = useRef(new WebSocket('ws://localhost:4000')).current;
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
+    handleSend(JSON.stringify(nodeIdx));
     updateField(nodeIdx);
   };
+
+  const handleSend = (messageText: string) => {
+    console.log(messageText);
+    ws.send(messageText);
+  };
+
+  useEffect(() => {
+    ws.onopen = () => {
+      console.log('opend');
+    };
+    ws.onerror = (e: any) => {
+      console.error(e);
+    };
+    ws.onmessage = (e) => {
+      console.log(e.data);
+    };
+    // return () => {
+    //   ws.close();
+    // };
+  }, [ws]);
 
   useEffect(() => {
     doesSomeoneWin();
