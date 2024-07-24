@@ -1,4 +1,5 @@
 import { fieldType, NodeIdxType } from '@/types/fieldTypes';
+import { v4 as uuidv4 } from 'uuid';
 
 export const getIndexOfLowestCell = (
   field: fieldType,
@@ -116,4 +117,10 @@ const checkSecondaryDiagonal = (
     }
   }
   return false;
+};
+
+export const generateUrlWithId = () => {
+  const id = uuidv4();
+  console.log(id);
+  return id;
 };
