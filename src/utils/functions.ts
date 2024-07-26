@@ -121,6 +121,5 @@ const checkSecondaryDiagonal = (
 
 export const generateUrlWithId = () => {
   const id = uuidv4();
-  console.log(id);
   return id;
 };

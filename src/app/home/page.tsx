@@ -8,8 +8,7 @@ const HomePage = () => {
     <div className="flex justify-center items-center size-full">
       <WinnerDialogWindow />
       <MultiPlayerGame />
-
-      <Field />
+      {/* <Field /> */}
     </div>
   );
 };

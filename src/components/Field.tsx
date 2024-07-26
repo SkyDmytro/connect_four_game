@@ -11,10 +11,10 @@ import { getNewColor } from '@/utils/functions';
 
 interface FieldProps {}
 
-const Field = () => {
+const Field = ({ server }: { server: any }) => {
   const { field } = useSelector((state: RootState) => state.field);
   const { updateField, doesSomeoneWin } = useField();
-  var ws = useRef(new WebSocket('ws://localhost:4000')).current;
+  var ws = server.current;
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
     handleSend(JSON.stringify(nodeIdx));
@@ -33,7 +33,7 @@ const Field = () => {
     ws.onerror = (e: any) => {
       console.error(e);
     };
-    ws.onmessage = (e) => {
+    ws.onmessage = (e: any) => {
       console.log(e.data);
     };
     // return () => {
