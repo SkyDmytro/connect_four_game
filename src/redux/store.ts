@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import fieldReducer from './fieldSlice';
-
+import userReducer from './userSlice';
 const store = configureStore({
   reducer: {
-    field: fieldReducer
+    field: fieldReducer,
+    user: userReducer
   }
 });
 export type RootState = ReturnType<typeof store.getState>;
