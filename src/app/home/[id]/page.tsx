@@ -1,13 +1,19 @@
 'use client';
 
 import Field from '@/components/Field';
+import { useField } from '@/hooks/useField';
+import { TextMessage } from '@/types/apiTypes';
 import React, { useEffect, useState, useRef } from 'react';
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [isConnected, setIsConnected] = useState(false);
+  const { updateField } = useField();
   //TODO: delete any
   const socketRef = useRef<any>(null);
 
+  const handleSend = (message: TextMessage) => {
+    socketRef.current.send(JSON.stringify(message));
+  };
   useEffect(() => {
     if (socketRef.current) {
       return;
@@ -25,6 +31,7 @@ const Page = ({ params }: { params: { id: string } }) => {
     //TODO: delete any
     socketRef.current.onmessage = (event: any) => {
       const data = JSON.parse(event.data);
+
       console.log('Received:', data);
     };
 
@@ -43,7 +50,12 @@ const Page = ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      {params.id} {isConnected ? <Field server={socketRef} /> : 'Connecting...'}
+      {params.id}{' '}
+      {isConnected ? (
+        <Field gameId={params.id} onSend={handleSend} />
+      ) : (
+        'Connecting...'
+      )}
     </div>
   );
 };
