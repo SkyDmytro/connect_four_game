@@ -8,38 +8,55 @@ import { NodeIdxType } from '@/types/fieldTypes';
 import { updateCell } from '@/redux/fieldSlice';
 import { useField } from '@/hooks/useField';
 import { getNewColor } from '@/utils/functions';
+import { TextMessage } from '@/types/apiTypes';
 
 interface FieldProps {}
 
-const Field = ({ server }: { server: any }) => {
+const Field = ({
+  gameId,
+  onSend
+}: {
+  gameId: string;
+  onSend: (m: TextMessage) => void;
+}) => {
   const { field } = useSelector((state: RootState) => state.field);
+  const { userId } = useSelector((state: RootState) => state.user);
   const { updateField, doesSomeoneWin } = useField();
-  var ws = server.current;
+  // let ws = server.current;
+  // console.log(ws);
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
-    handleSend(JSON.stringify(nodeIdx));
+    if (userId) {
+      onSend({
+        channelId: gameId,
+        text: nodeIdx,
+        type: 'message',
+        userId: userId
+      });
+    }
     updateField(nodeIdx);
   };
 
-  const handleSend = (messageText: string) => {
-    console.log(messageText);
-    ws.send(messageText);
-  };
+  // const handleSend = (messageText: TextMessage) => {
+  //   console.log(messageText);
+  //   ws.send(JSON.stringify(messageText));
+  // };
 
-  useEffect(() => {
-    ws.onopen = () => {
-      console.log('opend');
-    };
-    ws.onerror = (e: any) => {
-      console.error(e);
-    };
-    ws.onmessage = (e: any) => {
-      console.log(e.data);
-    };
-    // return () => {
-    //   ws.close();
-    // };
-  }, [ws]);
+  // useEffect(() => {
+  //   ws.onopen = () => {
+  //     console.log('opend');
+  //   };
+  //   ws.onerror = (e: any) => {
+  //     console.error(e);
+  //   };
+  //   ws.onmessage = (e: any) => {
+  //     // updateField(e.data);
+  //     console.log('e.datda', e.data);
+  //   };
+  //   // return () => {
+  //   //   ws.close();
+  //   // };
+  // }, [ws, server]);
 
   useEffect(() => {
     doesSomeoneWin();
