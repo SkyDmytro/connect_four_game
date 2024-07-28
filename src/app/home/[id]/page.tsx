@@ -2,12 +2,16 @@
 
 import Field from '@/components/Field';
 import { useField } from '@/hooks/useField';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux/store';
+import { initializeUser } from '@/redux/userSlice';
 import { TextMessage } from '@/types/apiTypes';
 import React, { useEffect, useState, useRef } from 'react';
 
 const Page = ({ params }: { params: { id: string } }) => {
   const [isConnected, setIsConnected] = useState(false);
   const { updateField } = useField();
+  const dispatch = useAppDispatch();
+  const { userId } = useAppSelector((state: RootState) => state.user);
   //TODO: delete any
   const socketRef = useRef<any>(null);
 
@@ -31,8 +35,11 @@ const Page = ({ params }: { params: { id: string } }) => {
     //TODO: delete any
     socketRef.current.onmessage = (event: any) => {
       const data = JSON.parse(event.data);
-
-      console.log('Received:', data);
+      if (data.type === 'joined_channel' && userId === null) {
+        const newUser = { color: data.color, userId: data.userId };
+        dispatch(initializeUser(newUser));
+        console.log('Received:', data);
+      }
     };
 
     socketRef.current.onclose = () => {
