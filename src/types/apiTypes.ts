@@ -1,4 +1,4 @@
-import { NodeIdxType } from './fieldTypes';
+import { colorType, NodeIdxType } from './fieldTypes';
 
 interface CreateChannelMessage {
   type: 'create_channel';
@@ -20,6 +20,8 @@ interface TextMessage {
 interface ChannelCreatedResponse {
   type: 'channel_created';
   channelId: string;
+  userId: string;
+  color: colorType;
 }
 
 interface JoinedChannelResponse {

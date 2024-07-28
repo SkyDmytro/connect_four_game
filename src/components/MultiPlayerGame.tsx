@@ -6,11 +6,15 @@ import React, { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import CopyIcon from '../assets/copy-svgrepo-com.svg';
 import Image from 'next/image';
+import { json } from 'stream/consumers';
+import { useAppDispatch } from '@/redux/store';
+import { initializeUser, userStateType } from '@/redux/userSlice';
+import { ChannelCreatedResponse } from '@/types/apiTypes';
 
 export const MultiPlayerGame = () => {
   const [generatedUrl, setGeneratedUrl] = useState<null | string>(null);
   const [copyStatus, setCopyStatus] = useState(false);
-
+  const dispatch = useAppDispatch();
   const handleCreateRoom = () => {
     const newId = generateUrlWithId();
     const newUrl = location.href + '/' + newId;
@@ -18,6 +22,11 @@ export const MultiPlayerGame = () => {
     ws.onopen = () => {
       console.log('Connected to WebSocket');
       ws.send(JSON.stringify({ type: 'create_channel', channelId: newId }));
+    };
+    ws.onmessage = (e) => {
+      const { userId, color }: ChannelCreatedResponse = JSON.parse(e.data);
+      const newUser: userStateType = { color, userId };
+      dispatch(initializeUser(newUser));
     };
     setGeneratedUrl(newUrl);
   };
