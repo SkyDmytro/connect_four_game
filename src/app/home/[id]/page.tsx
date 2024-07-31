@@ -47,12 +47,6 @@ const Page = ({ params }: { params: { id: string } }) => {
       setIsConnected(false);
       socketRef.current = null;
     };
-
-    // return () => {
-    //   if (socketRef.current) {
-    //     socketRef.current.close();
-    //   }
-    // };
   }, [params.id]);
 
   return (
