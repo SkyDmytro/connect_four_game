@@ -9,6 +9,8 @@ import { updateCell } from '@/redux/fieldSlice';
 import { useField } from '@/hooks/useField';
 import { getNewColor } from '@/utils/functions';
 import { TextMessage } from '@/types/apiTypes';
+import { CurrentTurn } from "@/components/CurrentTurn";
+
 
 interface FieldProps {}
 
@@ -76,6 +78,7 @@ const Field = ({
           ))
         )}
       </div>
+      <CurrentTurn color={"blue"}/>
     </>
   );
 };
