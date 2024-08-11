@@ -9,8 +9,7 @@ import { updateCell } from '@/redux/fieldSlice';
 import { useField } from '@/hooks/useField';
 import { getNewColor } from '@/utils/functions';
 import { TextMessage } from '@/types/apiTypes';
-import { CurrentTurn } from "@/components/CurrentTurn";
-
+import { CurrentTurn } from '@/components/CurrentTurn';
 
 interface FieldProps {}
 
@@ -21,11 +20,9 @@ const Field = ({
   gameId: string;
   onSend: (m: TextMessage) => void;
 }) => {
-  const { field } = useSelector((state: RootState) => state.field);
-  const { userId } = useSelector((state: RootState) => state.user);
+  const { field, currentColor } = useSelector((state: RootState) => state.field);
+  const { userId} = useSelector((state: RootState) => state.user);
   const { updateField, doesSomeoneWin } = useField();
-  // let ws = server.current;
-  // console.log(ws);
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
     if (userId) {
@@ -38,27 +35,6 @@ const Field = ({
     }
     updateField(nodeIdx);
   };
-
-  // const handleSend = (messageText: TextMessage) => {
-  //   console.log(messageText);
-  //   ws.send(JSON.stringify(messageText));
-  // };
-
-  // useEffect(() => {
-  //   ws.onopen = () => {
-  //     console.log('opend');
-  //   };
-  //   ws.onerror = (e: any) => {
-  //     console.error(e);
-  //   };
-  //   ws.onmessage = (e: any) => {
-  //     // updateField(e.data);
-  //     console.log('e.datda', e.data);
-  //   };
-  //   // return () => {
-  //   //   ws.close();
-  //   // };
-  // }, [ws, server]);
 
   useEffect(() => {
     doesSomeoneWin();
@@ -78,8 +54,9 @@ const Field = ({
           ))
         )}
       </div>
-      <CurrentTurn color={"blue"}/>
+      <CurrentTurn color={currentColor} />
     </>
+
   );
 };
 
