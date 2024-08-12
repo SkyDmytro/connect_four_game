@@ -20,8 +20,10 @@ const Field = ({
   gameId: string;
   onSend: (m: TextMessage) => void;
 }) => {
-  const { field, currentColor } = useSelector((state: RootState) => state.field);
-  const { userId} = useSelector((state: RootState) => state.user);
+  const { field, currentColor } = useSelector(
+    (state: RootState) => state.field
+  );
+  const { userId } = useSelector((state: RootState) => state.user);
   const { updateField, doesSomeoneWin } = useField();
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
@@ -56,7 +58,6 @@ const Field = ({
       </div>
       <CurrentTurn color={currentColor} />
     </>
-
   );
 };
 
