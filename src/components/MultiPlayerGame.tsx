@@ -9,7 +9,11 @@ import Image from 'next/image';
 import { json } from 'stream/consumers';
 import { useAppDispatch } from '@/redux/store';
 import { initializeUser, userStateType } from '@/redux/userSlice';
-import { ChannelCreatedResponse } from '@/types/apiTypes';
+import {
+  ChannelCreatedResponse,
+  JoinedChannelResponse
+} from '@/types/apiTypes';
+import { updateCurrentTurn } from '@/redux/fieldSlice';
 
 export const MultiPlayerGame = () => {
   const [generatedUrl, setGeneratedUrl] = useState<null | string>(null);
@@ -24,9 +28,23 @@ export const MultiPlayerGame = () => {
       ws.send(JSON.stringify({ type: 'create_channel', channelId: newId }));
     };
     ws.onmessage = (e) => {
-      const { userId, color }: ChannelCreatedResponse = JSON.parse(e.data);
-      const newUser: userStateType = { color, userId };
-      dispatch(initializeUser(newUser));
+      const {
+        type,
+        userId,
+        color,
+        currentTurn
+      }: ChannelCreatedResponse | JoinedChannelResponse = JSON.parse(e.data);
+      if (type === 'channel_created') {
+        const newUser: userStateType = { color, userId };
+        const currentColor = currentTurn;
+
+        dispatch(initializeUser(newUser));
+        dispatch(updateCurrentTurn(currentColor));
+        console.log('user init ', newUser, currentColor);
+      }
+      if (type === 'joined_channel') {
+        dispatch(updateCurrentTurn(currentTurn));
+      }
     };
     setGeneratedUrl(newUrl);
   };

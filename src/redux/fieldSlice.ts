@@ -88,10 +88,17 @@ const fieldSlice = createSlice({
     },
     updateWinState: (state, payload) => {
       state.isWinner = payload.payload;
+    },
+    updateCurrentTurn: (state, payload) => {
+      state.currentColor = payload.payload;
     }
   }
 });
 
-export const { initializeField, updateCell, updateWinState } =
-  fieldSlice.actions;
+export const {
+  initializeField,
+  updateCell,
+  updateWinState,
+  updateCurrentTurn
+} = fieldSlice.actions;
 export default fieldSlice.reducer;

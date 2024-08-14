@@ -22,11 +22,15 @@ interface ChannelCreatedResponse {
   channelId: string;
   userId: string;
   color: colorType;
+  currentTurn: colorType;
 }
 
 interface JoinedChannelResponse {
   type: 'joined_channel';
   channelId: string;
+  userId: string;
+  color: colorType;
+  currentTurn: colorType;
 }
 
 interface ErrorResponse {

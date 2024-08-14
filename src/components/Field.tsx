@@ -23,8 +23,16 @@ const Field = ({
   const { field, currentColor } = useSelector(
     (state: RootState) => state.field
   );
-  const { userId } = useSelector((state: RootState) => state.user);
+  const { userId, color: userColor } = useSelector(
+    (state: RootState) => state.user
+  );
   const { updateField, doesSomeoneWin } = useField();
+  const [isUserTurn, setIsUserTurn] = useState(true);
+
+  useEffect(() => {
+    const isUserTurn = userColor === currentColor;
+    setIsUserTurn(isUserTurn);
+  }, [currentColor, userColor]);
 
   const handleNodeClick = (nodeIdx: NodeIdxType) => {
     if (userId) {
@@ -48,6 +56,7 @@ const Field = ({
         {field.map((row, rowIdx) =>
           row.map((col, colIdx) => (
             <Node
+              isUserTurn={isUserTurn}
               node={col}
               key={`${rowIdx}-${colIdx}`}
               nodeIdx={[rowIdx, colIdx]}
