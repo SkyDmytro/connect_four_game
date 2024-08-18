@@ -21,7 +21,7 @@ export const useField = () => {
     if (cellIndex !== -1) {
       dispatch(updateCell(cellIndex));
     }
-   return newField;
+    return newField;
   };
 
   const doesSomeoneWin = () => {

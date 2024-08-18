@@ -6,11 +6,14 @@ interface NodeProps {
   node: nodeType;
   nodeIdx: NodeIdxType;
   onClick: (nodeIds: NodeIdxType) => void;
+  isUserTurn: boolean;
 }
 
-export const Node = ({ nodeIdx, node, onClick }: NodeProps) => {
+export const Node = ({ nodeIdx, node, onClick, isUserTurn }: NodeProps) => {
   const handleClick = () => {
-    onClick(nodeIdx);
+    if (isUserTurn) {
+      onClick(nodeIdx);
+    }
   };
 
   const nodeClasses = classNames({
